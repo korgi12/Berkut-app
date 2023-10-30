@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "123059972142",
+    "project_id": "berkutshopsmr",
+    "storage_bucket": "berkutshopsmr.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:123059972142:android:c149cb36e9dbc6906b97bf",
+        "android_client_info": {
+          "package_name": "com.example.berkutshop"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBlH0j5hi1NWAuoeB2WPnaheI8hvgewghc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

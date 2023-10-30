@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="main_menu">#5C3A3A</color>
+    <color name="splash_screen">#DA6412</color>
+</resources>
