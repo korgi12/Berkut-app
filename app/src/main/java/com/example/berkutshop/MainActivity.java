@@ -6,11 +6,13 @@ import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.view.MenuItem;
 
+import com.example.berkutshop.Adapter.ProductAdapter;
 import com.example.berkutshop.DB.DishesDB;
 import com.example.berkutshop.databinding.ActivityMainBinding;
 import com.google.android.material.navigation.NavigationView;
@@ -20,10 +22,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private SearchView searchView;
     private RecyclerView recyclerViewPopular;
     private RecyclerView.Adapter adapterPopular;
-
+    private DishesDB dishesDB;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        DishesDB dishesDB = new DishesDB();
+        dishesDB = new DishesDB();
 
         super.onCreate(savedInstanceState);
         binding = ActivityMainBinding.inflate(getLayoutInflater());
@@ -43,10 +45,16 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 replacedFragment(new AccountFragment());
             }
         });
+        recycleViewPopularDish();
     }
 
-    private void initRecyclerView() {
+    private void recycleViewPopularDish() {
+        RecyclerView recyclerView = findViewById(R.id.recyclerView);
+        GridLayoutManager layoutManager = new GridLayoutManager(this, 2);
+        recyclerView.setLayoutManager(layoutManager);
 
+        ProductAdapter adapter = new ProductAdapter(dishesDB.getTreeMap());
+        recyclerView.setAdapter(adapter);
     }
 
     private void replacedFragment(Fragment fragment) {
