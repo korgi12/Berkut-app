@@ -1,29 +1,31 @@
 package com.example.berkutshop.Adapter;
 
-import android.os.Bundle;
+import android.annotation.SuppressLint;
+import android.app.Activity;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.berkutshop.DB.Dish;
-import com.example.berkutshop.MainActivity;
+import com.example.berkutshop.Helper.ManagementCart;
 import com.example.berkutshop.R;
+import com.example.berkutshop.Activity.ShowDetailActivity;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.TreeMap;
 
 public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHolder> {
-
-    private TreeMap<Integer, Dish> treeMap;
+    public Activity activity;
     private List<Dish> dishList;
 
-    public ProductAdapter(TreeMap<Integer, Dish> treeMap ) {
-        this.treeMap = treeMap;
+    public ProductAdapter(TreeMap<Integer, Dish> treeMap, Activity activity) {
+        this.activity = activity;
         this.dishList = new ArrayList<>(treeMap.values());
     }
 
@@ -34,11 +36,32 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
+    public void onBindViewHolder(ViewHolder holder, @SuppressLint("RecyclerView") int position) {
         Dish dish = dishList.get(position);
         holder.productName.setText(dish.getName());
         holder.price.setText(dish.getPrice());
+        holder.showDetailsItem.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(holder.itemView.getContext(), ShowDetailActivity.class);
+                intent.putExtra("name", dishList.get(position).getName());
+                intent.putExtra("price", dishList.get(position).getPrice());
+                intent.putExtra("composition", dishList.get(position).getComposition());
+                holder.itemView.getContext().startActivity(intent);
 
+            }
+        });
+        holder.addBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (!ManagementCart.contain(dishList.get(position)))
+                    ManagementCart.putDishCartUSer(dishList.get(position), 1);
+                else {
+                    int currentValue=(ManagementCart.getMapCartUser().get(dishList.get(position)));
+                    ManagementCart.putDishCartUSer(dishList.get(position), currentValue+1);
+                }
+            }
+        });
     }
 
     @Override
@@ -47,13 +70,16 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        TextView productName;
-        TextView price;
+        TextView productName, price;
+        Button addBtn, showDetailsItem;
+
 
         public ViewHolder(View itemView) {
             super(itemView);
             productName = itemView.findViewById(R.id.productName);
             price = itemView.findViewById(R.id.price);
+            addBtn = itemView.findViewById(R.id.btnAdd);
+            showDetailsItem = itemView.findViewById(R.id.btnInfoFood);
 
         }
     }

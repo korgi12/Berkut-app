@@ -1,4 +1,4 @@
-package com.example.berkutshop;
+package com.example.berkutshop.Activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 
-import com.example.berkutshop.MainActivity;
 import com.example.berkutshop.R;
 
 public class SplashActivity extends AppCompatActivity {

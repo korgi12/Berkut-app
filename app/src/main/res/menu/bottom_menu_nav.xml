@@ -1,23 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/navigation">
     <item
-        android:id="@+id/shop"
+        android:id="@+id/bottomShop"
         android:icon="@drawable/vector_shop"
         android:title="Shop" />
     <item
-        android:id="@+id/explore"
+        android:id="@+id/bottomExplore"
         android:icon="@drawable/vector_manage"
         android:title="Explore" />
     <item
-        android:id="@+id/cart"
+        android:id="@+id/bottomCart"
         android:icon="@drawable/vector_cart"
         android:title="Cart" />
     <item
-        android:id="@+id/favourite"
+        android:id="@+id/bottomFavourite"
         android:icon="@drawable/vector_favorite"
         android:title="Favourite" />
     <item
-        android:id="@+id/account"
+        android:id="@+id/bottomAccount"
         android:icon="@drawable/vector_account"
         android:title="Account" />
 </menu>
