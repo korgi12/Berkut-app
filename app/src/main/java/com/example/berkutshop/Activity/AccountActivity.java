@@ -25,11 +25,11 @@ public class AccountActivity extends AppCompatActivity {
             if (R.id.bottomShop == item.getItemId()) {
                 startActivity(new Intent(getApplicationContext(), MainActivity.class));
                 overridePendingTransition(0,0);
-                finish();
-            } else if (R.id.bottomExplore == item.getItemId()) {
-                startActivity(new Intent(getApplicationContext(), ExploreActivity.class));
-                overridePendingTransition(0,0);
-                finish();
+//                finish();
+//            } else if (R.id.bottomExplore == item.getItemId()) {
+//                startActivity(new Intent(getApplicationContext(), ExploreActivity.class));
+//                overridePendingTransition(0,0);
+//                finish();
             } else if (R.id.bottomCart == item.getItemId()) {
                 startActivity(new Intent(getApplicationContext(), CartActivity.class));
                 overridePendingTransition(0,0);

@@ -15,7 +15,6 @@ public class DBLibrary {
             "hotdishes",
             "fishdishes",
             "barbecue",
-            "dishesonsaj",
             "tandoor",
             "garnish",
             "dessert",

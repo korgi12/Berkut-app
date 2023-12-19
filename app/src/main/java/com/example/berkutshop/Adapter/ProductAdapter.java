@@ -22,11 +22,11 @@ import java.util.TreeMap;
 
 public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHolder> {
     public Activity activity;
-    private List<Dish> dishList;
+    private ArrayList<Dish> dishList;
 
-    public ProductAdapter(TreeMap<Integer, Dish> treeMap, Activity activity) {
+    public ProductAdapter(ArrayList<Dish> treeMap, Activity activity) {
         this.activity = activity;
-        this.dishList = new ArrayList<>(treeMap.values());
+        this.dishList = treeMap;
     }
 
     @Override
