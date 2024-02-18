@@ -21,7 +21,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        android:paddingBottom="?android:attr/actionBarSize">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -37,7 +38,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
-                    android:text="My Cart"
+                    android:text="Корзина"
                     android:textAlignment="center"
                     android:textColor="#ff3d00"
                     android:textSize="25sp"
@@ -73,17 +74,17 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
-                    android:text="Items Total:"
+                    android:text="Количство товаров:"
                     android:textColor="#373b54"
                     android:textSize="18sp"
                     android:textStyle="bold"
-                    app:layout_constraintEnd_toStartOf="@+id/txtTotalFee"
+                    app:layout_constraintEnd_toStartOf="@+id/totalProducts"
                     app:layout_constraintHorizontal_bias="0.5"
                     app:layout_constraintStart_toStartOf="@+id/guideline7"
                     app:layout_constraintTop_toBottomOf="@+id/rvItemsInCart" />
 
                 <TextView
-                    android:id="@+id/txtTotalFee"
+                    android:id="@+id/totalProducts"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
@@ -101,7 +102,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"
-                    android:text="Delivery Services:"
+                    android:text="Доставка из магазина:"
                     android:textColor="#373b54"
                     android:textSize="18sp"
                     android:textStyle="bold"
@@ -125,68 +126,35 @@
                     app:layout_constraintTop_toBottomOf="@+id/textView13" />
 
                 <TextView
-                    android:id="@+id/txtTax"
+                    android:id="@+id/totalPrice"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
+                    android:layout_marginStart="16dp"
                     android:text="0"
                     android:textColor="#373b54"
                     android:textSize="18sp"
                     android:textStyle="bold"
                     app:layout_constraintEnd_toStartOf="@+id/guideline6"
-                    app:layout_constraintHorizontal_bias="0.5"
-                    app:layout_constraintStart_toEndOf="@+id/textView18"
-                    app:layout_constraintTop_toBottomOf="@+id/textView15" />
-
-                <TextView
-                    android:id="@+id/textView18"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
-                    android:text="Tax:"
-                    android:textColor="#373b54"
-                    android:textSize="18sp"
-                    android:textStyle="bold"
-                    app:layout_constraintEnd_toStartOf="@+id/txtTax"
-                    app:layout_constraintHorizontal_bias="0.5"
-                    app:layout_constraintStart_toStartOf="@+id/guideline7"
+                    app:layout_constraintStart_toEndOf="@+id/textView19"
                     app:layout_constraintTop_toBottomOf="@+id/textView15" />
 
                 <TextView
                     android:id="@+id/textView19"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:text="Total:"
+                    android:layout_width="275dp"
+                    android:layout_height="49dp"
+                    android:text="Итог:"
                     android:textColor="#373b54"
                     android:textSize="26sp"
                     android:textStyle="bold"
-                    app:layout_constraintEnd_toStartOf="@+id/textView20"
-                    app:layout_constraintHorizontal_bias="0.5"
                     app:layout_constraintStart_toStartOf="@+id/guideline7"
-                    app:layout_constraintTop_toBottomOf="@+id/textView18" />
-
-                <TextView
-                    android:id="@+id/textView20"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:text="0"
-                    android:textColor="#373b54"
-                    android:textSize="26sp"
-                    android:textStyle="bold"
-                    app:layout_constraintEnd_toStartOf="@+id/guideline6"
-                    app:layout_constraintHorizontal_bias="0.5"
-                    app:layout_constraintStart_toEndOf="@+id/textView19"
-                    app:layout_constraintTop_toBottomOf="@+id/textView18" />
-
+                    app:layout_constraintTop_toBottomOf="@+id/textView15" />
                 <Button
                     android:id="@+id/button2"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
                     android:background="@drawable/orange_button"
-                    android:text="CheckOut"
+                    android:text="Оформить"
                     android:textAllCaps="false"
                     android:textSize="18sp"
                     android:textStyle="bold"

@@ -17,8 +17,6 @@ import com.example.berkutshop.R;
 import com.example.berkutshop.Activity.ShowDetailActivity;
 
 import java.util.ArrayList;
-import java.util.List;
-import java.util.TreeMap;
 
 public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHolder> {
     public Activity activity;
@@ -48,18 +46,12 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
                 intent.putExtra("price", dishList.get(position).getPrice());
                 intent.putExtra("composition", dishList.get(position).getComposition());
                 holder.itemView.getContext().startActivity(intent);
-
             }
         });
         holder.addBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (!ManagementCart.contain(dishList.get(position)))
-                    ManagementCart.putDishCartUSer(dishList.get(position), 1);
-                else {
-                    int currentValue=(ManagementCart.getMapCartUser().get(dishList.get(position)));
-                    ManagementCart.putDishCartUSer(dishList.get(position), currentValue+1);
-                }
+                ManagementCart.getInstance().getIntArrayDequeCart().add(position);
             }
         });
     }

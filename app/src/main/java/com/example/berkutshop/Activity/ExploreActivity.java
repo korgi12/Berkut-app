@@ -5,6 +5,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 
+import com.example.berkutshop.Helper.BadgeManager;
+import com.example.berkutshop.Helper.BottomNavigationManager;
 import com.example.berkutshop.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -15,12 +17,12 @@ public class ExploreActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_explore);
 
-        BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigation);
+        BottomNavigationManager.getInstance().setBottomNavigationView(findViewById(R.id.bottomNavigation));
+        BottomNavigationManager.getInstance().getBottomNavigationView().setSelectedItemId(R.id.bottomExplore);
+        BadgeManager.getInstance().showBadge(BottomNavigationManager.getInstance().getBottomNavigationView().getOrCreateBadge(R.id.bottomCart));
 
-        // Set Home selected
-        bottomNavigationView.setSelectedItemId(R.id.bottomExplore);
 
-        bottomNavigationView.setOnItemSelectedListener(item -> {
+        BottomNavigationManager.getInstance().getBottomNavigationView().setOnItemSelectedListener(item -> {
             if (R.id.bottomShop == item.getItemId()) {
                 startActivity(new Intent(getApplicationContext(), MainActivity.class));
                 overridePendingTransition(0,0);

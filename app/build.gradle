@@ -36,6 +36,11 @@ android {
 dependencies {
     compileOnly "org.projectlombok:lombok:1.18.30"
     annotationProcessor 'org.projectlombok:lombok:1.18.30'
+    implementation 'com.mikepenz:actionitembadge:4.0.0'
+
+    //SUB-DEPENDENCIES
+    //Android-Iconics - used to provide an easy API for icons
+    implementation 'com.mikepenz:iconics-core:{latestVersion}@aar'
 
     testCompileOnly 'org.projectlombok:lombok:1.18.30'
     testAnnotationProcessor 'org.projectlombok:lombok:1.18.30'
@@ -45,10 +50,8 @@ dependencies {
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
-    implementation 'org.postgresql:postgresql:42.2.5'
-
-    implementation 'androidx.appcompat:appcompat:1.4.2'
-    implementation 'com.google.android.material:material:1.6.1'
+    // https://mvnrepository.com/artifact/org.postgresql/postgresql
+    implementation group: 'org.postgresql', name: 'postgresql', version: '42.2.5'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
 
 

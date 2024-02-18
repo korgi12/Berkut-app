@@ -1,4 +1,6 @@
 package com.example.berkutshop.DB;
+import android.annotation.SuppressLint;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -8,13 +10,13 @@ public abstract class DataBase {
 
     protected Connection databaseConnection=null;
 
-    private final String host = "containers-us-west-117.railway.app";
+    private final String host = "roundhouse.proxy.rlwy.net";
 
-    private final String database = "postgres";
-    private final int port = 7441;
+    private final String database = "railway";
+    private final int port = 33065;
     private final String user = "postgres";
-    private final String pass = "29US5H0SPDjZ67I3C6Sp";
-    private String url = "jdbc:postgresql://containers-us-west-117.railway.app:7441/railway";
+    private final String pass = "54Ca51Aeaaa2A6C6fa3c3aCcFaCDC6DB";
+    private String url = "jdbc:postgresql://roundhouse.proxy.rlwy.net:33065/railway";
     private boolean status;
 
     public DataBase()

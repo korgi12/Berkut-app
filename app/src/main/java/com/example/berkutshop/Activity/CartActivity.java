@@ -5,39 +5,34 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.example.berkutshop.Adapter.CartListAdapter;
-import com.example.berkutshop.DB.Dish;
+import com.example.berkutshop.Helper.BadgeManager;
+import com.example.berkutshop.Helper.BottomNavigationManager;
 import com.example.berkutshop.Helper.ManagementCart;
 import com.example.berkutshop.R;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
-
-import java.util.Map;
-import java.util.TreeMap;
 
 public class CartActivity extends AppCompatActivity {
     private RecyclerView.Adapter adapter;
     private RecyclerView recyclerViewList;
-    TextView totalFeeTxt, taxTxt, deliveryTxt, totalTxt;
+    TextView txtDelveryService, totalPrice, totalProducts;
     private double tax;
     private ScrollView scrollView;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cart);
 
-        BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigation);
+        BottomNavigationManager.getInstance().setBottomNavigationView(findViewById(R.id.bottomNavigation));
+        BottomNavigationManager.getInstance().getBottomNavigationView().setSelectedItemId(R.id.bottomCart);
+        BadgeManager.getInstance().showBadge(BottomNavigationManager.getInstance().getBottomNavigationView().getOrCreateBadge(R.id.bottomCart));
 
-        // Set Home selected
-        bottomNavigationView.setSelectedItemId(R.id.bottomCart);
-
-        // Perform item selected listener
-        bottomNavigationView.setOnItemSelectedListener(item -> {
+        BottomNavigationManager.getInstance().getBottomNavigationView().setOnItemSelectedListener(item -> {
             if (R.id.bottomShop == item.getItemId()) {
                 startActivity(new Intent(getApplicationContext(), MainActivity.class));
                 overridePendingTransition(0, 0);
@@ -68,10 +63,9 @@ public class CartActivity extends AppCompatActivity {
     }
 
     private void initView() {
-        totalFeeTxt = findViewById(R.id.txtTotalFee);
-        taxTxt = findViewById(R.id.txtTax);
-        deliveryTxt = findViewById(R.id.txtDelveryService);
-        totalTxt = findViewById(R.id.textView20);
+        txtDelveryService = findViewById(R.id.txtDelveryService);
+        totalPrice = findViewById(R.id.totalPrice);
+        totalProducts = findViewById(R.id.totalProducts);
         scrollView = findViewById(R.id.scrollable);
         recyclerViewList = findViewById(R.id.rvItemsInCart);
     }
@@ -79,20 +73,14 @@ public class CartActivity extends AppCompatActivity {
     private void initList() {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         recyclerViewList.setLayoutManager(linearLayoutManager);
-        adapter = new CartListAdapter(ManagementCart.getMapCartUser());
+        adapter = new CartListAdapter(ManagementCart.getInstance().getMapCartUser());
         recyclerViewList.setAdapter(adapter);
     }
 
     private void changeTotal() {
-        int total = 0;
-        int sumCount = 0;
-        for (Map.Entry<Dish, Integer> s : ManagementCart.getMapCartUser().entrySet()) {
-            total += Integer.parseInt(s.getKey().getPrice().split("р")[0]) * s.getValue();
-            sumCount += s.getValue();
-        }
-        totalTxt.setText(String.valueOf(total));
-        totalFeeTxt.setText(String.valueOf(sumCount));
-
+        totalPrice.setText(String.valueOf(ManagementCart.getInstance().getSummaProducts()+59)+" Р");
+        totalProducts.setText(String.valueOf(ManagementCart.getInstance().getTotalProducts()));
+        txtDelveryService.setText("59 Р");
     }
 
 }

@@ -5,21 +5,32 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Looper;
 
+import com.example.berkutshop.DB.Dish;
+import com.example.berkutshop.DB.DishesDB;
+import com.example.berkutshop.Helper.ManagementCart;
 import com.example.berkutshop.R;
 
-public class SplashActivity extends AppCompatActivity {
+import java.util.TreeMap;
+
+public class SplashActivity extends AppCompatActivity implements DishesDB.LoadDataListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                startActivity( new Intent(SplashActivity.this, MainActivity.class));
-                finish();
-            }
-        },1000);
+
+        new DishesDB(this);
     }
+
+    @Override
+    public void onDataLoaded(TreeMap<Integer, Dish> data) {
+
+        ManagementCart.getInstance().changeTotal();
+        startActivity(new Intent(SplashActivity.this, MainActivity.class));
+
+        finish();
+    }
+
 }
