@@ -1,9 +1,11 @@
 package com.example.berkutshop.DB;
 
 import android.os.Build;
+import android.os.Handler;
 
 import com.example.berkutshop.DB.Interface.ISortedMapBD;
 
+import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -34,7 +36,7 @@ public class DishesDB extends DataBase  {
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
             future = CompletableFuture.supplyAsync(() -> {
                 treeMap = new TreeMap<>();
-                try {
+                try (Connection databaseConnection = connect()){
                     Statement stmt = databaseConnection.createStatement();
                     for (String categoryName: DBLibrary.listCategoriesNameFromDb) {
                         ResultSet dataAboutDish = stmt.executeQuery("select * from " + categoryName);
