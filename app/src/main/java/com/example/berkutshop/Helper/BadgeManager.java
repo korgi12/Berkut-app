@@ -21,6 +21,5 @@ public class BadgeManager {
     public void showBadge(BadgeDrawable badgeDrawable) {
         badgeDrawable.setNumber(ManagementCart.getInstance().getTotalProducts());
         badgeDrawable.setVisible(true);
-
     }
 }

@@ -1,31 +1,24 @@
 package com.example.berkutshop.Adapter;
 
-import static com.mikepenz.iconics.Iconics.getApplicationContext;
-
-import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.berkutshop.Activity.CartActivity;
 import com.example.berkutshop.DB.Dish;
 import com.example.berkutshop.Helper.ManagementCart;
 import com.example.berkutshop.R;
 
-import java.util.Iterator;
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
-
 public class CartListAdapter extends RecyclerView.Adapter<CartListAdapter.ViewHolder> {
-    private final Iterator<Map.Entry<Dish, Integer>> iterator;
+    private CartActivity cartActivity;
 
-    public CartListAdapter(ConcurrentHashMap<Dish, Integer> treeMap) {
-        iterator = treeMap.entrySet().iterator();
+    public CartListAdapter(CartActivity cartActivity) {
+        this.cartActivity  = cartActivity;
     }
 
     @NonNull
@@ -37,13 +30,37 @@ public class CartListAdapter extends RecyclerView.Adapter<CartListAdapter.ViewHo
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        Map.Entry<Dish, Integer> entry = iterator.next();
-        holder.title.setText(entry.getKey().getName());
-        holder.countCurrentDish.setText(entry.getValue().toString());
-        holder.feeEachItem.setText(entry.getKey().getPrice());
-        holder.totalEachItem.setText(String.valueOf(Integer.parseInt(entry.getKey().getPrice().split("р")[0]) * entry.getValue()));
+        Dish currentDish = ManagementCart.getInstance().getMapCartUser().get(position);
+        listenCurrentDish(holder, currentDish);
+        holder.plusDish.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ManagementCart.getInstance().getMapCartUser().get(holder.getAdapterPosition()).setCountInCart(ManagementCart.getInstance().getMapCartUser().get(holder.getAdapterPosition()).getCountInCart() + 1);
+                listenCurrentDish(holder, ManagementCart.getInstance().getMapCartUser().get(holder.getAdapterPosition()));
+                cartActivity.changeTotalActivity();
+            }
+        });
+        holder.minusDish.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (ManagementCart.getInstance().getMapCartUser().get(holder.getAdapterPosition()).getCountInCart() != 1) {
+                    ManagementCart.getInstance().getMapCartUser().get(holder.getAdapterPosition()).setCountInCart(ManagementCart.getInstance().getMapCartUser().get(holder.getAdapterPosition()).getCountInCart() - 1);
+                    listenCurrentDish(holder, ManagementCart.getInstance().getMapCartUser().get(holder.getAdapterPosition()));
+                } else {
+                    ManagementCart.getInstance().getMapCartUser().remove(holder.getAdapterPosition());
+                    notifyItemRemoved(holder.getAdapterPosition());
+                    notifyItemRangeChanged(holder.getAdapterPosition(), getItemCount());
+                }
+                cartActivity.changeTotalActivity();
+            }
+        });
+    }
 
-
+    public void listenCurrentDish(ViewHolder holder, Dish currentDish) {
+        holder.title.setText(currentDish.getName());
+        holder.countCurrentDish.setText(String.valueOf(currentDish.getCountInCart()));
+        holder.feeEachItem.setText(currentDish.getPrice());
+        holder.totalEachItem.setText(String.valueOf(Integer.parseInt(currentDish.getPrice().split("р")[0]) * currentDish.getCountInCart()));
     }
 
     @Override
@@ -53,6 +70,7 @@ public class CartListAdapter extends RecyclerView.Adapter<CartListAdapter.ViewHo
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         TextView title, feeEachItem, totalEachItem, countCurrentDish;
+        Button minusDish, plusDish;
 
         public ViewHolder(@NonNull View view) {
             super(view);
@@ -60,8 +78,8 @@ public class CartListAdapter extends RecyclerView.Adapter<CartListAdapter.ViewHo
             feeEachItem = view.findViewById(R.id.feeEachItem);
             totalEachItem = view.findViewById(R.id.totalEachItem);
             countCurrentDish = view.findViewById(R.id.numItems);
-
-
+            minusDish = view.findViewById(R.id.minBtnCart);
+            plusDish = view.findViewById(R.id.plusBtnCart);
         }
 
     }

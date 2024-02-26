@@ -27,43 +27,21 @@
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/ic_launcher_foreground" />
 
-        <TextView
-            android:id="@+id/txtTitleCart"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="16dp"
-            android:text="Title"
-            android:textColor="#373b54"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toStartOf="@+id/feeEachItem"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintHorizontal_chainStyle="spread_inside"
-            app:layout_constraintStart_toEndOf="@+id/picCart"
-            app:layout_constraintTop_toTopOf="parent" />
 
         <Button
             android:id="@+id/minBtnCart"
-            android:layout_width="28dp"
-            android:layout_height="27dp"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
             android:layout_marginStart="8dp"
             android:layout_marginEnd="8dp"
+            android:background="@android:color/transparent"
             android:text="-"
+            android:textSize="20dp"
             app:layout_constraintBottom_toBottomOf="@+id/picCart"
             app:layout_constraintEnd_toStartOf="@+id/numItems"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintHorizontal_chainStyle="packed"
             app:layout_constraintStart_toEndOf="@+id/picCart" />
-
-        <Button
-            android:id="@+id/plusBtnCart"
-            android:layout_width="25dp"
-            android:layout_height="24dp"
-            android:layout_marginStart="8dp"
-            android:text="+"
-            app:layout_constraintBottom_toBottomOf="@+id/picCart"
-            app:layout_constraintStart_toEndOf="@+id/numItems" />
 
         <TextView
             android:id="@+id/numItems"
@@ -77,26 +55,49 @@
             app:layout_constraintEnd_toStartOf="@+id/plusBtnCart"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/minBtnCart" />
+        <TextView
+            android:id="@+id/txtTitleCart"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            android:maxWidth="228dp"
+            android:maxLines="2"
+            android:text="Title"
+            android:textColor="#373b54"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toStartOf="@+id/feeEachItem"
+            app:layout_constraintStart_toEndOf="@+id/picCart"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/feeEachItem"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="17dp"
-            android:layout_marginEnd="8dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
             android:text="0"
             android:textColor="#373b54"
             android:textSize="16sp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/txtTitleCart"
             app:layout_constraintTop_toTopOf="parent" />
+        <Button
+            android:id="@+id/plusBtnCart"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_marginStart="8dp"
+            android:text="+"
+            android:textSize="20dp"
+            android:background="@android:color/transparent"
+            app:layout_constraintBottom_toBottomOf="@+id/picCart"
+            app:layout_constraintStart_toEndOf="@+id/numItems" />
 
         <TextView
             android:id="@+id/totalEachItem"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
+            android:layout_marginEnd="16dp"
             android:text="0"
             android:textColor="#373b54"
             android:textSize="18sp"
@@ -104,7 +105,6 @@
             app:layout_constraintBottom_toBottomOf="@+id/plusBtnCart"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/plusBtnCart" />
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.cardview.widget.CardView>

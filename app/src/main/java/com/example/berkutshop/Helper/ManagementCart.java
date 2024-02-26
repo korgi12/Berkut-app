@@ -3,23 +3,29 @@ package com.example.berkutshop.Helper;
 import android.os.Build;
 
 import com.example.berkutshop.DB.Dish;
-import com.example.berkutshop.DB.DishesDB;
 import com.example.berkutshop.R;
 
 import java.util.ArrayDeque;
-import java.util.Map;
-import java.util.Objects;
-import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 public class ManagementCart {
     private static ManagementCart instance;
-    private ConcurrentHashMap<Dish, Integer> cartUser = new ConcurrentHashMap<>();
+    private CopyOnWriteArrayList<Dish> cartUser = new CopyOnWriteArrayList<>();
 
     public ArrayDeque<Dish> getIntArrayDequeCart() {
         return intArrayDequeCart;
     }
 
     private ArrayDeque<Dish> intArrayDequeCart = new ArrayDeque<>();
+
+    public void setTotalProducts(int totalProducts) {
+        this.totalProducts = totalProducts;
+    }
+
+    public void setSummaProducts(int summaProducts) {
+        this.summaProducts = summaProducts;
+    }
+
     private int totalProducts = 0;
     private int summaProducts = 0;
 
@@ -34,34 +40,29 @@ public class ManagementCart {
         return instance;
     }
 
-    public ConcurrentHashMap<Dish, Integer> getMapCartUser() {
+    public CopyOnWriteArrayList<Dish> getMapCartUser() {
         return cartUser;
     }
 
 
-    public void changeTotal() {
+    public void changeCart() {
         Thread c = new Thread(new Runnable() {
             @Override
             public void run() {
                 while (true) {
                     if (!intArrayDequeCart.isEmpty()) {
-                        Dish currentDish =intArrayDequeCart.poll();
+                        Dish currentDish = intArrayDequeCart.poll();
 
                         if (currentDish != null) {
-                            if (!cartUser.containsKey(currentDish)) {
-                                cartUser.put(currentDish, 1);
+                            if (!cartUser.contains(currentDish)) {
+                                currentDish.setCountInCart(1);
+                                cartUser.add(currentDish);
                             } else {
                                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                                    cartUser.computeIfPresent(currentDish, (k, v) -> ++v);
+                                    currentDish.setCountInCart(currentDish.getCountInCart() + 1);
                                 }
                             }
-
-                            summaProducts = 0;
-                            totalProducts = 0;
-                            for (Map.Entry<Dish, Integer> s : cartUser.entrySet()) {
-                                summaProducts += Integer.parseInt(s.getKey().getPrice().split("р")[0]) * s.getValue();
-                                totalProducts += s.getValue();
-                            }
+                            changeTotal();
                             BadgeManager.getInstance().showBadge(BottomNavigationManager.getInstance().getBottomNavigationView().getOrCreateBadge(R.id.bottomCart));
                         }
                     }
@@ -71,6 +72,17 @@ public class ManagementCart {
         });
         c.setName("Подсчет суммы и количества");
         c.start();
+    }
+
+    public void changeTotal() {
+        summaProducts = 0;
+        totalProducts = 0;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            cartUser.forEach(dish -> {
+                summaProducts += Integer.parseInt(dish.getPrice().split("р")[0]) * dish.getCountInCart();
+                totalProducts += dish.getCountInCart();
+            });
+        }
     }
 
     public int getTotalProducts() {

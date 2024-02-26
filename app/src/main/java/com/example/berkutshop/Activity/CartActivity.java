@@ -1,7 +1,5 @@
 package com.example.berkutshop.Activity;
 
-import static com.mikepenz.iconics.Iconics.getApplicationContext;
-
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -9,8 +7,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ScrollView;
@@ -66,7 +62,7 @@ public class CartActivity extends AppCompatActivity {
         initialCheckout();
         initView();
         initList();
-        changeTotal();
+        changeTotalActivity();
     }
 
     private void initView() {
@@ -80,12 +76,13 @@ public class CartActivity extends AppCompatActivity {
     private void initList() {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         recyclerViewList.setLayoutManager(linearLayoutManager);
-        adapter = new CartListAdapter(ManagementCart.getInstance().getMapCartUser());
+        adapter = new CartListAdapter(this);
         recyclerViewList.setAdapter(adapter);
     }
 
-    private void changeTotal() {
-        totalPrice.setText(String.valueOf(ManagementCart.getInstance().getSummaProducts()+59)+" Р");
+    public void changeTotalActivity() {
+        ManagementCart.getInstance().changeTotal();
+        totalPrice.setText(ManagementCart.getInstance().getSummaProducts()+59+" Р");
         totalProducts.setText(String.valueOf(ManagementCart.getInstance().getTotalProducts()));
         txtDelveryService.setText("59 Р");
     }
@@ -95,8 +92,13 @@ public class CartActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 int[] index = {0};
+                BadgeManager.getInstance().showBadge(BottomNavigationManager.getInstance().getBottomNavigationView().getOrCreateBadge(R.id.bottomCart));
+                totalPrice.setText("0");
+                totalProducts.setText("0");
+                ManagementCart.getInstance().setSummaProducts(0);
+                ManagementCart.getInstance().setTotalProducts(0);
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                    ManagementCart.getInstance().getMapCartUser().forEach((dish, quantity) -> {
+                    ManagementCart.getInstance().getMapCartUser().forEach(dish -> {
                         adapter.notifyItemRemoved(index[0]);
                         adapter.notifyItemRangeChanged(index[0], adapter.getItemCount());
                         index[0]++;

@@ -4,8 +4,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Looper;
 
 import com.example.berkutshop.DB.Dish;
 import com.example.berkutshop.DB.DishesDB;
@@ -27,7 +25,7 @@ public class SplashActivity extends AppCompatActivity implements DishesDB.LoadDa
     @Override
     public void onDataLoaded(TreeMap<Integer, Dish> data) {
 
-        ManagementCart.getInstance().changeTotal();
+        ManagementCart.getInstance().changeCart();
         startActivity(new Intent(SplashActivity.this, MainActivity.class));
 
         finish();

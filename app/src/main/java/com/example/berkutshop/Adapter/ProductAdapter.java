@@ -38,6 +38,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
     @Override
     public void onBindViewHolder(ViewHolder holder, @SuppressLint("RecyclerView") int position) {
         Dish dish = dishList.get(position);
+        holder.showDetailsItem.setImageResource(R.drawable.shax);
         holder.productName.setText(dish.getName());
         holder.price.setText(dish.getPrice().split("р")[0]+" р");
         holder.showDetailsItem.setOnClickListener(new View.OnClickListener() {
@@ -89,7 +90,6 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
             addBtn = itemView.findViewById(R.id.btnAdd);
             showDetailsItem = itemView.findViewById(R.id.btnInfoFood);
             favouriteBtn = itemView.findViewById(R.id.btnFavorite);
-
         }
     }
 }

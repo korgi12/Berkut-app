@@ -10,6 +10,7 @@ public class Dish {
         Composition = composition;
         Price = price;
         Favourite = false;
+        CountInCart = 0;
     }
 
     private String Name;
@@ -17,6 +18,16 @@ public class Dish {
     private String Composition;
     private String Price;
     private boolean Favourite;
+
+    public int getCountInCart() {
+        return CountInCart;
+    }
+
+    public void setCountInCart(int countInCart) {
+        CountInCart = countInCart;
+    }
+
+    private int CountInCart;
 
     public boolean isFavourite() {
         return Favourite;
