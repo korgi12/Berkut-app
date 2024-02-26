@@ -1,10 +1,14 @@
 package com.example.berkutshop.Adapter;
 
-import android.app.Activity;
+import static com.mikepenz.iconics.Iconics.getApplicationContext;
+
+import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -13,18 +17,15 @@ import com.example.berkutshop.DB.Dish;
 import com.example.berkutshop.Helper.ManagementCart;
 import com.example.berkutshop.R;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.TreeMap;
+import java.util.Iterator;
+import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class CartListAdapter extends RecyclerView.Adapter<CartListAdapter.ViewHolder> {
-    private List<Dish> dishList;
-    private List<Integer> countDishList;
+    private final Iterator<Map.Entry<Dish, Integer>> iterator;
 
     public CartListAdapter(ConcurrentHashMap<Dish, Integer> treeMap) {
-        this.dishList = new ArrayList<>(treeMap.keySet());
-        this.countDishList = new ArrayList<>(treeMap.values());
+        iterator = treeMap.entrySet().iterator();
     }
 
     @NonNull
@@ -36,26 +37,29 @@ public class CartListAdapter extends RecyclerView.Adapter<CartListAdapter.ViewHo
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.title.setText(dishList.get(position).getName());
-        holder.num.setText(countDishList.get(position).toString());
-        holder.feeEachItem.setText(dishList.get(position).getPrice());
-        holder.totalEachItem.setText(String.valueOf(Integer.parseInt(dishList.get(position).getPrice().split("р")[0])*countDishList.get(position)));
+        Map.Entry<Dish, Integer> entry = iterator.next();
+        holder.title.setText(entry.getKey().getName());
+        holder.countCurrentDish.setText(entry.getValue().toString());
+        holder.feeEachItem.setText(entry.getKey().getPrice());
+        holder.totalEachItem.setText(String.valueOf(Integer.parseInt(entry.getKey().getPrice().split("р")[0]) * entry.getValue()));
+
+
     }
 
     @Override
     public int getItemCount() {
-        return countDishList.size();
+        return ManagementCart.getInstance().getMapCartUser().size();
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        TextView title, feeEachItem, totalEachItem, num;
+        TextView title, feeEachItem, totalEachItem, countCurrentDish;
 
         public ViewHolder(@NonNull View view) {
             super(view);
             title = view.findViewById(R.id.txtTitleCart);
             feeEachItem = view.findViewById(R.id.feeEachItem);
             totalEachItem = view.findViewById(R.id.totalEachItem);
-            num = view.findViewById(R.id.numItems);
+            countCurrentDish = view.findViewById(R.id.numItems);
 
 
         }

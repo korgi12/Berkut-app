@@ -41,7 +41,7 @@ public class DishesDB extends DataBase  {
                     for (String categoryName: DBLibrary.listCategoriesNameFromDb) {
                         ResultSet dataAboutDish = stmt.executeQuery("select * from " + categoryName);
                         while (dataAboutDish.next())
-                            treeMap.put(Integer.parseInt(dataAboutDish.getString("id")),
+                            treeMap.put(Integer.parseInt(dataAboutDish.getString("id"))-1,
                                     new Dish(
                                             dataAboutDish.getString("name"),
                                             dataAboutDish.getString("description"),

@@ -55,10 +55,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 startActivity(new Intent(getApplicationContext(), MainActivity.class));
                 overridePendingTransition(0, 0);
                 finish();
-            } else if (R.id.bottomExplore == item.getItemId()) {
-                startActivity(new Intent(getApplicationContext(), ExploreActivity.class));
-                overridePendingTransition(0, 0);
-                finish();
             } else if (R.id.bottomCart == item.getItemId()) {
                 startActivity(new Intent(getApplicationContext(), CartActivity.class));
                 overridePendingTransition(0, 0);
@@ -105,7 +101,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 filterItem.add(tmp);
             }
         }
-        ProductAdapter adapter = new ProductAdapter(filterItem, this);
+        ProductAdapter adapter = new ProductAdapter(filterItem);
         recyclerView.setAdapter(adapter);
     }
 
@@ -115,7 +111,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         GridLayoutManager layoutManager = new GridLayoutManager(this, 2);
         recyclerView.setLayoutManager(layoutManager);
 
-        ProductAdapter adapter = new ProductAdapter(new ArrayList<>(DishesDB.getTreeMap().values()), this);
+        ProductAdapter adapter = new ProductAdapter(new ArrayList<>(DishesDB.getTreeMap().values()));
         recyclerView.setAdapter(adapter);
     }
 

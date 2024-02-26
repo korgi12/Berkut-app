@@ -15,11 +15,11 @@ public class ManagementCart {
     private static ManagementCart instance;
     private ConcurrentHashMap<Dish, Integer> cartUser = new ConcurrentHashMap<>();
 
-    public ArrayDeque<Integer> getIntArrayDequeCart() {
+    public ArrayDeque<Dish> getIntArrayDequeCart() {
         return intArrayDequeCart;
     }
 
-    private ArrayDeque<Integer> intArrayDequeCart = new ArrayDeque<>();
+    private ArrayDeque<Dish> intArrayDequeCart = new ArrayDeque<>();
     private int totalProducts = 0;
     private int summaProducts = 0;
 
@@ -44,8 +44,8 @@ public class ManagementCart {
             @Override
             public void run() {
                 while (true) {
-                    if(!intArrayDequeCart.isEmpty()) {
-                        Dish currentDish = DishesDB.getTreeMap().get(intArrayDequeCart.poll());
+                    if (!intArrayDequeCart.isEmpty()) {
+                        Dish currentDish =intArrayDequeCart.poll();
 
                         if (currentDish != null) {
                             if (!cartUser.containsKey(currentDish)) {

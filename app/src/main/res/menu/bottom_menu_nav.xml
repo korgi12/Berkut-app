@@ -8,10 +8,6 @@
         android:icon="@drawable/vector_shop"
         android:title="Магазин" />
     <item
-        android:id="@+id/bottomExplore"
-        android:icon="@drawable/vector_manage"
-        android:title="Каталог" />
-    <item
         android:id="@+id/bottomCart"
         android:icon="@drawable/vector_cart"
         android:title="Корзина" />

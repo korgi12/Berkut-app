@@ -1,13 +1,21 @@
 package com.example.berkutshop.Activity;
 
+import static com.mikepenz.iconics.Iconics.getApplicationContext;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.berkutshop.Adapter.CartListAdapter;
 import com.example.berkutshop.Helper.BadgeManager;
@@ -20,6 +28,7 @@ public class CartActivity extends AppCompatActivity {
     private RecyclerView recyclerViewList;
     TextView txtDelveryService, totalPrice, totalProducts;
     private double tax;
+    private Button checkout;
     private ScrollView scrollView;
 
 
@@ -27,6 +36,7 @@ public class CartActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cart);
+        checkout = findViewById(R.id.checkout);
 
         BottomNavigationManager.getInstance().setBottomNavigationView(findViewById(R.id.bottomNavigation));
         BottomNavigationManager.getInstance().getBottomNavigationView().setSelectedItemId(R.id.bottomCart);
@@ -35,10 +45,6 @@ public class CartActivity extends AppCompatActivity {
         BottomNavigationManager.getInstance().getBottomNavigationView().setOnItemSelectedListener(item -> {
             if (R.id.bottomShop == item.getItemId()) {
                 startActivity(new Intent(getApplicationContext(), MainActivity.class));
-                overridePendingTransition(0, 0);
-                finish();
-            } else if (R.id.bottomExplore == item.getItemId()) {
-                startActivity(new Intent(getApplicationContext(), ExploreActivity.class));
                 overridePendingTransition(0, 0);
                 finish();
             } else if (R.id.bottomCart == item.getItemId()) {
@@ -57,6 +63,7 @@ public class CartActivity extends AppCompatActivity {
 
             return false;
         });
+        initialCheckout();
         initView();
         initList();
         changeTotal();
@@ -81,6 +88,25 @@ public class CartActivity extends AppCompatActivity {
         totalPrice.setText(String.valueOf(ManagementCart.getInstance().getSummaProducts()+59)+" Р");
         totalProducts.setText(String.valueOf(ManagementCart.getInstance().getTotalProducts()));
         txtDelveryService.setText("59 Р");
+    }
+
+    private void initialCheckout() {
+        checkout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                int[] index = {0};
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                    ManagementCart.getInstance().getMapCartUser().forEach((dish, quantity) -> {
+                        adapter.notifyItemRemoved(index[0]);
+                        adapter.notifyItemRangeChanged(index[0], adapter.getItemCount());
+                        index[0]++;
+                    });
+                }
+                ManagementCart.getInstance().getMapCartUser().clear();
+
+                Toast.makeText(getApplicationContext(), "Ваш заказ принят!", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
 }

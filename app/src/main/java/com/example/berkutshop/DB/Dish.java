@@ -9,12 +9,22 @@ public class Dish {
         Description = description;
         Composition = composition;
         Price = price;
+        Favourite = false;
     }
 
     private String Name;
     private String Description;
     private String Composition;
     private String Price;
+    private boolean Favourite;
+
+    public boolean isFavourite() {
+        return Favourite;
+    }
+
+    public void toggleStateFavourite() {
+        Favourite = !Favourite;
+    }
 
     public String getName() {
         return Name;
