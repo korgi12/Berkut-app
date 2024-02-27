@@ -1,9 +1,11 @@
 package com.example.berkutshop.DB;
 
+import android.content.Context;
 import android.os.Build;
 import android.os.Handler;
 
 import com.example.berkutshop.DB.Interface.ISortedMapBD;
+import com.example.berkutshop.R;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -13,6 +15,8 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
+import java.util.Random;
 import java.util.TreeMap;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutorService;
@@ -21,14 +25,16 @@ import java.util.concurrent.Executors;
 public class DishesDB extends DataBase  {
     private static TreeMap<Integer, Dish> treeMap;
     private LoadDataListener loadDataListener;
+    private Context context;
 
     public interface LoadDataListener {
         void onDataLoaded(TreeMap<Integer, Dish> data);
     }
 
-    public DishesDB(LoadDataListener listener) {
+    public DishesDB(LoadDataListener listener, Context context) {
         this.loadDataListener = listener;
         getAllCategoriesNameDishes();
+        this.context = context;
     }
     public void getAllCategoriesNameDishes() {
         ExecutorService executor = Executors.newSingleThreadExecutor();
@@ -46,7 +52,8 @@ public class DishesDB extends DataBase  {
                                             dataAboutDish.getString("name"),
                                             dataAboutDish.getString("description"),
                                             dataAboutDish.getString("composition"),
-                                            dataAboutDish.getString("price")
+                                            dataAboutDish.getString("price"),
+                                            context.getResources().getIdentifier("a"+new Random().nextInt(7), "drawable", context.getPackageName())
                                     ));
                     }
                 } catch (Exception e) {

@@ -4,6 +4,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -32,6 +34,7 @@ public class CartListAdapter extends RecyclerView.Adapter<CartListAdapter.ViewHo
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Dish currentDish = ManagementCart.getInstance().getMapCartUser().get(position);
         listenCurrentDish(holder, currentDish);
+        holder.picCart.setImageResource(currentDish.getPhoto());
         holder.plusDish.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -71,6 +74,7 @@ public class CartListAdapter extends RecyclerView.Adapter<CartListAdapter.ViewHo
     public static class ViewHolder extends RecyclerView.ViewHolder {
         TextView title, feeEachItem, totalEachItem, countCurrentDish;
         Button minusDish, plusDish;
+        ImageView picCart;
 
         public ViewHolder(@NonNull View view) {
             super(view);
@@ -80,6 +84,7 @@ public class CartListAdapter extends RecyclerView.Adapter<CartListAdapter.ViewHo
             countCurrentDish = view.findViewById(R.id.numItems);
             minusDish = view.findViewById(R.id.minBtnCart);
             plusDish = view.findViewById(R.id.plusBtnCart);
+            picCart = view.findViewById(R.id.picCart);
         }
 
     }

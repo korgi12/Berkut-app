@@ -22,6 +22,8 @@
                 android:id="@+id/btnInfoFood"
                 android:layout_width="match_parent"
                 android:layout_height="120dp"
+                android:scaleType="centerInside"
+                android:background="@android:color/transparent"
                 android:src="@drawable/ic_launcher_foreground" />
 
             <ImageButton

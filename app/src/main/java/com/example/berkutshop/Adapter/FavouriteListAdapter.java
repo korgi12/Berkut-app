@@ -32,6 +32,7 @@ public class FavouriteListAdapter extends RecyclerView.Adapter<FavouriteListAdap
         Dish dish = ManagementFavourite.getInstance().getCartUser().get(position);
         holder.productName.setText(dish.getName());
         holder.price.setText(dish.getPrice().split("р")[0] + " р");
+        holder.showDetailsItem.setImageResource(dish.getPhoto());
         holder.favouriteBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -65,6 +66,7 @@ public class FavouriteListAdapter extends RecyclerView.Adapter<FavouriteListAdap
         ImageButton favouriteBtn;
         TextView productName, price;
         Button addBtn;
+        ImageButton showDetailsItem;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -72,6 +74,7 @@ public class FavouriteListAdapter extends RecyclerView.Adapter<FavouriteListAdap
             price = itemView.findViewById(R.id.price);
             favouriteBtn = itemView.findViewById(R.id.btnFavorite);
             addBtn = itemView.findViewById(R.id.btnAdd);
+            showDetailsItem = itemView.findViewById(R.id.btnInfoFood);
         }
     }
 }

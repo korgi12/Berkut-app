@@ -37,7 +37,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
     @Override
     public void onBindViewHolder(ViewHolder holder, @SuppressLint("RecyclerView") int position) {
         Dish dish = dishList.get(position);
-        holder.showDetailsItem.setImageResource(R.drawable.shax);
+        holder.showDetailsItem.setImageResource(dish.getPhoto());
         holder.productName.setText(dish.getName());
         holder.price.setText(dish.getPrice().split("р")[0]+" р");
         holder.showDetailsItem.setOnClickListener(new View.OnClickListener() {
@@ -47,6 +47,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
                 intent.putExtra("name", dishList.get(position).getName());
                 intent.putExtra("price", dishList.get(position).getPrice().split("р")[0]+" р");
                 intent.putExtra("composition", dishList.get(position).getComposition());
+                intent.putExtra("imgFoodDetails",String.valueOf(dishList.get(position).getPhoto()));
                 holder.itemView.getContext().startActivity(intent);
             }
         });

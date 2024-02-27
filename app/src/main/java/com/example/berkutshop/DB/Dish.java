@@ -4,13 +4,14 @@ import lombok.*;
 
 
 public class Dish {
-    public Dish(String name, String description, String composition, String price) {
+    public Dish(String name, String description, String composition, String price,int idPhoto) {
         Name = name;
         Description = description;
         Composition = composition;
         Price = price;
         Favourite = false;
         CountInCart = 0;
+        Photo = idPhoto;
     }
 
     private String Name;
@@ -18,6 +19,19 @@ public class Dish {
     private String Composition;
     private String Price;
     private boolean Favourite;
+    private int Photo;
+
+    public void setFavourite(boolean favourite) {
+        Favourite = favourite;
+    }
+
+    public int getPhoto() {
+        return Photo;
+    }
+
+    public void setPhoto(int photo) {
+        Photo = photo;
+    }
 
     public int getCountInCart() {
         return CountInCart;

@@ -19,7 +19,7 @@ public class SplashActivity extends AppCompatActivity implements DishesDB.LoadDa
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
 
-        new DishesDB(this);
+        new DishesDB(this,this);
     }
 
     @Override
