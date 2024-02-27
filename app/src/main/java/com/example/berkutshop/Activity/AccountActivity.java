@@ -1,17 +1,24 @@
 package com.example.berkutshop.Activity;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
 
+import com.example.berkutshop.Adapter.HistoryOrderAdapter;
+import com.example.berkutshop.Adapter.ProductAdapter;
+import com.example.berkutshop.DB.DishesDB;
 import com.example.berkutshop.Helper.BadgeManager;
 import com.example.berkutshop.Helper.BottomNavigationManager;
 import com.example.berkutshop.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-public class AccountActivity extends AppCompatActivity {
+import java.util.ArrayList;
 
+public class AccountActivity extends AppCompatActivity {
+    RecyclerView recyclerView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,5 +49,14 @@ public class AccountActivity extends AppCompatActivity {
 
             return false;
         });
+        recycleViewPopularDish();
+    }
+    private void recycleViewPopularDish() {
+        recyclerView = findViewById(R.id.recyclerViewOrders);
+        GridLayoutManager layoutManager = new GridLayoutManager(this, 1);
+        recyclerView.setLayoutManager(layoutManager);
+
+        HistoryOrderAdapter adapter = new HistoryOrderAdapter();
+        recyclerView.setAdapter(adapter);
     }
 }

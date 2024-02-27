@@ -14,10 +14,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.berkutshop.Adapter.CartListAdapter;
+import com.example.berkutshop.DB.Order;
 import com.example.berkutshop.Helper.BadgeManager;
 import com.example.berkutshop.Helper.BottomNavigationManager;
 import com.example.berkutshop.Helper.ManagementCart;
+import com.example.berkutshop.Helper.ManagmentHistoryOrder;
 import com.example.berkutshop.R;
+
+import java.util.Random;
 
 public class CartActivity extends AppCompatActivity {
     private RecyclerView.Adapter adapter;
@@ -82,7 +86,7 @@ public class CartActivity extends AppCompatActivity {
 
     public void changeTotalActivity() {
         ManagementCart.getInstance().changeTotal();
-        totalPrice.setText(ManagementCart.getInstance().getSummaProducts()+59+" Р");
+        totalPrice.setText(ManagementCart.getInstance().getSummaProducts() + 59 + " Р");
         totalProducts.setText(String.valueOf(ManagementCart.getInstance().getTotalProducts()));
         txtDelveryService.setText("59 Р");
     }
@@ -93,6 +97,7 @@ public class CartActivity extends AppCompatActivity {
             public void onClick(View view) {
                 int[] index = {0};
                 BadgeManager.getInstance().showBadge(BottomNavigationManager.getInstance().getBottomNavigationView().getOrCreateBadge(R.id.bottomCart));
+                ManagmentHistoryOrder.getInstance().getCartUserHistory().add(0,new Order(String.valueOf(new Random().nextInt()),(String) totalProducts.getText(),(String) totalPrice.getText()));
                 totalPrice.setText("0");
                 totalProducts.setText("0");
                 ManagementCart.getInstance().setSummaProducts(0);
